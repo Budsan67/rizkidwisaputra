@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Gerbang Logika</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f0f4f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 30px;
+            color: #007bff;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .input-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .input-container label {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .input-container select {
+            width: 70px;
+            height: 40px;
+            font-size: 18px;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .gate-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .gate-buttons button {
+            width: 90px;
+            height: 40px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 5px;
+        }
+
+        .gate-buttons button:hover {
+            background-color: #0056b3;
+        }
+
+        .result-container {
+            margin-top: 30px;
+            font-size: 20px;
+            color: #007bff;
+        }
+
+        .result-container span {
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        /* Menu Hamburger */
+        .menu-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .menu-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 24px;
+            height: 24px;
+            padding: 0;
+        }
+
+        .menu-button .bar {
+            width: 100%;
+            height: 3px;
+            background-color: #333;
+            border-radius: 2px;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 40px;
+            background: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            width: 200px;
+            text-align: left;
+            z-index: 1000;
+        }
+
+        .dropdown-menu.active {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kalkulator Gerbang Logika</h1>
+
+        <!-- Menu Hamburger -->
+        <div class="menu-container">
+            <button class="menu-button" onclick="toggleMenu()">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <div class="dropdown-menu" id="menu">
+                <a href="nama-anggota.html">Nama Anggota</a>
+                <a href="penjelasan-kalkulator.html">Penjelasan</a>
+            </div>
+        </div>
+
+        <div class="input-container">
+            <label for="input1">Input 1:</label>
+            <select id="input1">
+                <option value="0">0</option>
+                <option value="1">1</option>
+            </select>
+        </div>
+
+        <div class="input-container">
+            <label for="input2">Input 2:</label>
+            <select id="input2">
+                <option value="0">0</option>
+                <option value="1">1</option>
+            </select>
+        </div>
+
+        <div class="gate-buttons">
+            <button onclick="calculateGate('AND')">AND</button>
+            <button onclick="calculateGate('OR')">OR</button>
+            <button onclick="calculateGate('NOT')">NOT</button>
+            <button onclick="calculateGate('XOR')">XOR</button>
+            <button onclick="calculateGate('NAND')">NAND</button>
+            <button onclick="calculateGate('XNOR')">XNOR</button>
+        </div>
+
+        <div class="result-container">
+            <p>Output: <span id="result">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            menu.classList.toggle("active");
+        }
+
+        function calculateGate(gate) {
+            var input1 = parseInt(document.getElementById('input1').value);
+            var input2 = parseInt(document.getElementById('input2').value);
+            var result;
+
+            switch (gate) {
+                case 'AND':
+                    result = input1 && input2;
+                    break;
+                case 'OR':
+                    result = input1 || input2;
+                    break;
+                case 'NOT':
+                    result = !input1;
+                    break;
+                case 'XOR':
+                    result = input1 !== input2;
+                    break;
+                case 'NAND':
+                    result = !(input1 && input2);
+                    break;
+                case 'XNOR':
+                    result = input1 === input2;
+                    break;
+            }
+            document.getElementById('result').innerText = result ? 1 : 0;
+        }
+    </script>
+</body>
+</html>
